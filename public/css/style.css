@@ -3,6 +3,15 @@
 /* Template default CSS
 /*----------------------------------------*/
 
+:root{
+	/* muted primary tone (darker, desaturated teal) */
+	--primary: #3b7f8b;
+	--primary-dark: #2f6369;
+	--accent: #f5c55b;
+	--primary: #57a6b8; /* main brand color */
+	--primary-dark: #3f8b96;
+}
+
 html,
 body {
 	height: 100%;
@@ -45,6 +54,18 @@ h5 {
 
 h6 {
 	font-size: 16px;
+}
+
+/* Theme overrides using the muted primary */
+.primary-btn, .btn-primary, .category-btn, .search-btn{
+	background: var(--primary);
+	border-color: var(--primary-dark);
+	color: #fff;
+	background: var(--primary);
+	border-color: var(--primary-dark);
+}
+.primary-btn:hover, .btn-primary:hover, .category-btn:hover, .search-btn:hover{
+	background: var(--primary-dark);
 }
 
 p {
@@ -196,6 +217,52 @@ ol {
 	animation: loader 0.8s linear infinite;
 	-webkit-animation: loader 0.8s linear infinite;
 }
+
+/* Product card improvements: subtle border, radius, and soft shadow for a premium look */
+.product-item{
+	background: #fff;
+	border: 1px solid rgba(0,0,0,0.06);
+	border-radius: 8px;
+	box-shadow: 0 6px 18px rgba(23,27,31,0.04);
+	padding: 12px;
+	transition: transform .18s ease, box-shadow .18s ease;
+	background: #fff;
+	border: 1px solid var(--primary); /* subtle blue border */
+}
+.product-item:hover{
+	transform: translateY(-6px);
+	box-shadow: 0 14px 30px rgba(23,27,31,0.08);
+}
+.product-item .pi-pic{ display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:6px; background:#fafafa; }
+.product-item .pi-pic img{ width:auto; max-width:100%; max-height:320px; object-fit:contain; display:block; }
+.product-item .pi-text{ padding-top:12px; }
+
+/* Breadcrumb 'Thêm sản phẩm' button styling */
+.breadcrumb-text .btn-primary{
+	background: var(--primary);
+	border: 1px solid var(--primary-dark);
+	color:#fff;
+	padding:10px 16px;
+	border-radius:6px;
+	box-shadow: 0 6px 14px rgba(59,127,139,0.12);
+	background: transparent; /* outlined style */
+	color: var(--primary);
+	border: 2px solid var(--primary);
+}
+.breadcrumb-text .btn-primary:hover{
+	background: var(--primary-dark);
+	box-shadow: 0 10px 20px rgba(59,127,139,0.14);
+}
+
+/* Make header search button use theme */
+.advanced-search button{ background:var(--primary); border-color:var(--primary-dark); }
+.advanced-search button{ background:var(--primary); border-color:var(--primary-dark); }
+
+/* Hero/banner background using theme */
+.hero-items .single-hero-items{
+	background-color: var(--hero-bg) !important;
+}
+
 
 @keyframes loader {
 	0% {
@@ -1651,18 +1718,21 @@ ol {
 .breadcrumb-text {
 	border-bottom: 1px solid #ebebeb;
 	padding: 15px 0;
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
 
 .breadcrumb-text.product-more a:nth-child(1):after {
 	color: #252525;
 }
 
-.breadcrumb-text a {
-	display: inline-block;
-	font-size: 16px;
-	color: #252525;
-	margin-right: 28px;
-	position: relative;
+.breadcrumb-text a,
+.breadcrumb-text span{
+	margin: 0;
+}
+.breadcrumb-text .btn-primary{
+	margin-left: auto; /* push button to the right */
 }
 
 .breadcrumb-text a:after {

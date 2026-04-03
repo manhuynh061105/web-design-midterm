@@ -43,12 +43,27 @@ exports.create = async (req, res) => {
   if (!req.session.user) {
     return res.redirect('/login'); // 👈 chưa login thì quay về login
   }
-
-  await Product.create({
+  const data = {
     ...req.body,
     userId: req.session.user.id
-  });
-  console.log(req.body);
+  };
+
+  // nếu có file được upload bởi multer, lưu đường dẫn tương đối
+  if (req.file) {
+    // store path relative to /public, e.g. /img/products/xxx.jpg
+    data.image = '/img/products/' + req.file.filename;
+  }
+
+  // convert stock to number if provided
+  if (data.stock) {
+    data.stock = Number(data.stock);
+    if (Number.isNaN(data.stock)) data.stock = 0;
+  } else {
+    data.stock = 0;
+  }
+
+  console.log('CREATE product data:', data);
+  await Product.create(data);
 
   res.redirect('/');
 };
